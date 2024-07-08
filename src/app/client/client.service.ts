@@ -19,7 +19,7 @@ export class ClientService {
   ) {}
 
   async getAllUser(): Promise<any> {
-    return await this.clientEntity.find();
+    return await this.clientEntity.find({ where: { actived: true } });
   }
 
   async createClient(createClient: CreateClientDto): Promise<any> {
@@ -77,7 +77,7 @@ export class ClientService {
     });
 
     if (!verifyClient) {
-      throw new Error("Client not Found");
+      throw new CustomException("Client not Found", HttpStatus.NOT_FOUND);
     }
 
     verifyClient.updated_at = new Date();
