@@ -5,7 +5,7 @@ import {
   Get,
   Param,
   Post,
-  Put,
+  Put
 } from "@nestjs/common";
 import { ClientService } from "./client.service";
 import { CreateClientDto } from "./dto/createClient.dto";
@@ -28,7 +28,7 @@ export class ClientController {
   @Put(":email")
   async updateClient(
     @Body() updateClient: UpdateClientDto,
-    @Param("email") email: string,
+    @Param("email") email: string
   ): Promise<any> {
     return await this.clientService.updateClient(email, updateClient);
   }

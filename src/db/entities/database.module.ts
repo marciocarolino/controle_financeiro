@@ -15,8 +15,8 @@ import { ClientEntity } from "./client.entities";
       database: "financial_control",
       entities: [ClientEntity],
       migrations: [],
-      synchronize: false,
-    }),
-  ],
+      synchronize: false
+    })
+  ]
 })
 export class DataBaseModule {}

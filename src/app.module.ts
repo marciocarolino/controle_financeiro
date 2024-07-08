@@ -6,6 +6,6 @@ import { EventEmitterModule } from "@nestjs/event-emitter";
 @Module({
   imports: [EventEmitterModule.forRoot(), DataBaseModule, ClientModule],
   controllers: [],
-  providers: [],
+  providers: []
 })
 export class AppModule {}

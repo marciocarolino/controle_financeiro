@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { CustomException } from "src/utils/exception";
 import { BcryptConfig } from "src/utils/bcrypt.config";
 import { UpdateClientDto } from "./dto/updateClient.dto";
+import { EventEmitter2 } from "@nestjs/event-emitter";
 
 @Injectable()
 export class ClientService {
@@ -14,6 +15,7 @@ export class ClientService {
     private readonly bcryptConfig: BcryptConfig,
     @InjectRepository(ClientEntity)
     private readonly clientEntity: Repository<ClientEntity>,
+    private readonly eventEmitter: EventEmitter2
   ) {}
 
   async getAllUser(): Promise<any> {
@@ -22,18 +24,18 @@ export class ClientService {
 
   async createClient(createClient: CreateClientDto): Promise<any> {
     const verifyClient = await this.clientEntity.findOne({
-      where: { email: createClient.email },
+      where: { email: createClient.email }
     });
 
     if (verifyClient) {
       throw new CustomException(
         "E-mail already registered",
-        HttpStatus.CONFLICT,
+        HttpStatus.CONFLICT
       );
     }
 
     const hashedPassword = await this.bcryptConfig.hashPassword(
-      createClient.password,
+      createClient.password
     );
 
     const create = this.clientEntity.create({
@@ -42,15 +44,19 @@ export class ClientService {
       email: createClient.email,
       password: hashedPassword,
       actived: true,
-      created_at: new Date(),
+      role: "verify",
+      created_at: new Date()
     });
 
-    return await this.clientEntity.save(create);
+    const saveClient = await this.clientEntity.save(create);
+    // this.eventEmitter.emit("client.created", saveClient);
+
+    return saveClient;
   }
 
   async updateClient(email: string, body: UpdateClientDto): Promise<any> {
     const verifyClient = await this.clientEntity.findOne({
-      where: { email: email },
+      where: { email: email }
     });
 
     if (!verifyClient) {
@@ -61,11 +67,13 @@ export class ClientService {
     verifyClient.actived = true;
     verifyClient.email = body.email;
     verifyClient.name = body.name;
+
+    return await this.clientEntity.save(verifyClient);
   }
 
   async deleteClient(email: string): Promise<any> {
     const verifyClient = await this.clientEntity.findOne({
-      where: { email: email },
+      where: { email: email }
     });
 
     if (!verifyClient) {

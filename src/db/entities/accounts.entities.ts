@@ -33,6 +33,6 @@ export class AccountsEntity {
   @Column({ name: "updated_at", type: "timestamp" })
   updated_at: Date;
 
-  @ManyToOne(() => ClientEntity, (client) => client.accounts)
-  client: ClientEntity;
+  // @ManyToOne(() => ClientEntity, (client) => client.accounts)
+  // client: ClientEntity;
 }

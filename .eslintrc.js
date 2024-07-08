@@ -25,6 +25,7 @@ module.exports = {
       'error',
       {
         singleQuote: false,
+        trailingComma: 'none'
       },
     ],
   },
