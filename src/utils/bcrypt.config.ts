@@ -12,11 +12,11 @@ export class BcryptConfig {
 
   async comparePasswords(
     plainTextPassword: string,
-    hashedPassword: string,
+    hashedPassword: string
   ): Promise<boolean> {
     const isPasswordMatching = await bcrypt.compare(
       plainTextPassword,
-      hashedPassword,
+      hashedPassword
     );
     return isPasswordMatching;
   }

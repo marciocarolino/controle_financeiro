@@ -18,12 +18,15 @@ export class ClientEntity {
   @Column({ name: "password" })
   password: string;
 
+  @Column({ name: "role" })
+  role: string;
+
   @Column({ name: "created_at", type: "timestamp" })
   created_at: Date;
 
   @Column({ name: "updated_at", type: "timestamp" })
   updated_at: Date;
 
-  @OneToMany(() => AccountsEntity, (accounts) => accounts.client)
-  accounts: AccountsEntity;
+  // @OneToMany(() => AccountsEntity, (accounts) => accounts.client)
+  // accounts: AccountsEntity;
 }
