@@ -24,7 +24,7 @@ export class ClientService {
 
   async createClient(createClient: CreateClientDto): Promise<any> {
     const verifyClient = await this.clientEntity.findOne({
-      where: { email: createClient.email }
+      where: { email: createClient.email },
     });
 
     if (verifyClient) {
@@ -45,7 +45,7 @@ export class ClientService {
       password: hashedPassword,
       actived: true,
       role: "verify",
-      created_at: new Date()
+      created_at: new Date(),
     });
 
     const saveClient = await this.clientEntity.save(create);
@@ -56,7 +56,7 @@ export class ClientService {
 
   async updateClient(email: string, body: UpdateClientDto): Promise<any> {
     const verifyClient = await this.clientEntity.findOne({
-      where: { email: email }
+      where: { email: email },
     });
 
     if (!verifyClient) {
@@ -73,7 +73,7 @@ export class ClientService {
 
   async deleteClient(email: string): Promise<any> {
     const verifyClient = await this.clientEntity.findOne({
-      where: { email: email }
+      where: { email: email },
     });
 
     if (!verifyClient) {

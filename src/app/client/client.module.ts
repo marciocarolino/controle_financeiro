@@ -10,6 +10,6 @@ import { EventCreateUser } from "src/events/eventCreateUser";
   imports: [TypeOrmModule.forFeature([ClientEntity])],
   controllers: [ClientController],
   providers: [ClientService, BcryptConfig, EventCreateUser],
-  exports: [ClientService]
+  exports: [ClientService],
 })
 export class ClientModule {}

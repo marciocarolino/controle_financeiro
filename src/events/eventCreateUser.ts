@@ -15,7 +15,7 @@ export class EventCreateUser {
   @OnEvent("client.created")
   async handleClientCreatedEvent(client: ClientEntity) {
     const verifyClient = await this.clientEntity.findOne({
-      where: { email: client.email }
+      where: { email: client.email },
     });
 
     if (!verifyClient) {
